@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour {
 
         systemManager.AddBodyTo("", body, orbit, "mars");
 
-        // Moon
+        // Moon of Earth
         body.color = new Color(0.6f, 0.6f, 0.6f);
         body.mass = 300.0f;
         body.size = 0.1f;
@@ -70,6 +70,27 @@ public class GameManager : MonoBehaviour {
         orbit.period = 1.0f;
 
         systemManager.AddBodyTo("earth", body, orbit, "moon");
+
+        // Moons of Mars
+        body.color = new Color(0.6f, 0.6f, 0.6f);
+        body.mass = 100.0f;
+        body.size = 0.05f;
+        body.tidalLock = true;
+        body.periodInMinutes = 0.4f;
+
+        orbit.semiMajorAxis = 20.0f;
+        orbit.eccentricity = 0.0f;
+        orbit.initialPosition = 0.0f;
+        orbit.period = 0.8f;
+
+        systemManager.AddBodyTo("mars", body, orbit, "phobos");
+
+        body.size = 0.04f;
+        orbit.semiMajorAxis = 30.0f;
+        orbit.period = 1.5f;
+
+        systemManager.AddBodyTo("mars", body, orbit, "deimos");
+
     }
 
     // Update is called once per frame
