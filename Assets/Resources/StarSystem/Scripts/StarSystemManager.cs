@@ -70,6 +70,7 @@ public class StarSystemManager : MonoBehaviour {
             GameObject newBody;
             newBody = (GameObject) Instantiate(planetPrefab, transform.position, transform.rotation);
             newBody.name = bodyName;
+            newBody.transform.localScale = new Vector3(body.size, body.size, 1.0f);
             SpriteRenderer renderer = newBody.GetComponent<SpriteRenderer>();
             renderer.color = body.color;
 

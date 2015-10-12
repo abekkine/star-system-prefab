@@ -29,19 +29,35 @@ public class GameManager : MonoBehaviour {
 
         systemManager.AddBodyTo("", body, orbit, "sun");
 
-        // A single planet
-        body.color = new Color(0.0f, 1.0f, 0.0f);
+        // Earth
+        body.color = new Color(0.5f, 0.6f, 1.0f);
         body.mass = 1000.0f;
-        body.size = 1.0f;
-        body.tidalLock = true;
-        body.periodInMinutes = 1.0f;
+        body.size = 0.5f;
+        body.tidalLock = false;
+        body.periodInMinutes = 0.1f;
 
         orbit.semiMajorAxis = 100.0f;
-        orbit.eccentricity = 0.0f;
+        orbit.eccentricity = 0.2f;
         orbit.initialPosition = 0.0f;
-        orbit.period = 5.0f;
+        orbit.period = 0.5f;
 
         systemManager.AddBodyTo("", body, orbit, "earth");
+
+        // Mars
+        body.color = new Color(1.0f, 0.5f, 0.2f);
+        body.mass = 1000.0f;
+        body.size = 0.3f;
+        body.tidalLock = false;
+        body.periodInMinutes = 0.3f;
+
+        orbit.semiMajorAxis = 150.0f;
+        orbit.eccentricity = 0.3f;
+        orbit.initialPosition = 0.0f;
+        orbit.period = 0.8f;
+
+        systemManager.AddBodyTo("", body, orbit, "mars");
+
+
 
     }
 
