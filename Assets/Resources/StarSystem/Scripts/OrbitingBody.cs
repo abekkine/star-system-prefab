@@ -22,9 +22,6 @@ public class OrbitingBody : MonoBehaviour {
     {
         bodyContainer = transform.Find("BodyContainer");
         bodyScript = bodyContainer.gameObject.GetComponent<RotatingBody>();
-        // DEBUG
-        Debug.Log(bodyScript.tidalLock.ToString());
-        Debug.Log(bodyScript.periodInMinutes.ToString());
     }
 
 	// Use this for initialization

@@ -58,7 +58,6 @@ public class RotatingBody : MonoBehaviour {
     {
         if (rotationFlag == true)
         {
-            Debug.Log("speed = " + rotationSpeed.ToString());
             transform.Rotate(Vector3.forward, Time.deltaTime * rotationSpeed);
         }
     }
