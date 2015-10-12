@@ -63,33 +63,51 @@ public class StarSystemManager : MonoBehaviour {
     // This method will be used to create star system manually, or to customize it.
     public void AddBodyTo(string parentBody, BodyProperties body, OrbitProperties orbit, string bodyName)
     {
-        if (parentBody == "")
+        // This will be added to the root of the system,
+        // Stars and main planets will belong to this level.
+        GameObject newBody = CreateNewBody(bodyName, body);
+
+        OrbitingBody orbitScript = CreateNewOrbit(bodyName, parentBody, orbit);
+
+        orbitScript.AddBody(newBody, body);
+    }
+
+    OrbitingBody CreateNewOrbit(string name, string parent, OrbitProperties props)
+    {
+        OrbitingBody script;
+        GameObject newOrbit;
+        newOrbit = (GameObject)Instantiate(orbitPrefab, transform.position, transform.rotation);
+        newOrbit.name = name + "Orbit";
+
+        if (parent == "")
         {
-            // This will be added to the root of the system,
-            // Stars and main planets will belong to this level.
-            GameObject newBody;
-            newBody = (GameObject) Instantiate(planetPrefab, transform.position, transform.rotation);
-            newBody.name = bodyName;
-            newBody.transform.localScale = new Vector3(body.size, body.size, 1.0f);
-            SpriteRenderer renderer = newBody.GetComponent<SpriteRenderer>();
-            renderer.color = body.color;
-
-            GameObject newOrbit;
-            newOrbit = (GameObject)Instantiate(orbitPrefab, transform.position, transform.rotation);
-            newOrbit.name = bodyName + "Orbit";
             newOrbit.transform.parent = transform;
-
-            OrbitingBody orbitScript = newOrbit.GetComponent<OrbitingBody>();
-            orbitScript.eccentricity = orbit.eccentricity;
-            orbitScript.semiMajorAxis = orbit.semiMajorAxis;
-            orbitScript.periodInMinutes = orbit.period;
-
-            orbitScript.AddBody(newBody, body);
-
-        } else
+        }
+        else
         {
             // Moons and other bodies orbiting around greater masses will be added here.
+            GameObject newParent = GameObject.Find(parent + "Orbit/BodyContainer");
+            newOrbit.transform.parent = newParent.transform;
+
         }
+
+        script = newOrbit.GetComponent<OrbitingBody>();
+        script.eccentricity = props.eccentricity;
+        script.semiMajorAxis = props.semiMajorAxis;
+        script.periodInMinutes = props.period;
+        
+        return script;
+    }
+
+    GameObject CreateNewBody(string bodyName, BodyProperties props)
+    {
+        GameObject newBody;
+        newBody = (GameObject)Instantiate(planetPrefab, transform.position, transform.rotation);
+        newBody.name = bodyName;
+        newBody.transform.localScale = new Vector3(props.size, props.size, 1.0f);
+        SpriteRenderer renderer = newBody.GetComponent<SpriteRenderer>();
+        renderer.color = props.color;
+        return newBody;
     }
 
     // This method will be used to query gravitational acceleration in a given point in system.

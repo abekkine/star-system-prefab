@@ -50,15 +50,26 @@ public class GameManager : MonoBehaviour {
         body.tidalLock = false;
         body.periodInMinutes = 0.3f;
 
-        orbit.semiMajorAxis = 150.0f;
+        orbit.semiMajorAxis = 250.0f;
         orbit.eccentricity = 0.3f;
         orbit.initialPosition = 0.0f;
         orbit.period = 0.8f;
 
         systemManager.AddBodyTo("", body, orbit, "mars");
 
+        // Moon
+        body.color = new Color(0.6f, 0.6f, 0.6f);
+        body.mass = 300.0f;
+        body.size = 0.1f;
+        body.tidalLock = true;
+        body.periodInMinutes = 0.3f;
 
+        orbit.semiMajorAxis = 20.0f;
+        orbit.eccentricity = 0.0f;
+        orbit.initialPosition = 0.0f;
+        orbit.period = 1.0f;
 
+        systemManager.AddBodyTo("earth", body, orbit, "moon");
     }
 
     // Update is called once per frame
